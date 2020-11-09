@@ -1,0 +1,10 @@
+  name: scatesplugin
+  main: com.drforse.scatesplugin.ScatesPlugin
+  version: 1.0-SNAPSHOT
+
+  commands:
+    setWalkSpeed:
+      description: command to set walk speed
+      usage: /<command> [player] [float]
+      permission: <plugin name>.op
+      permission-message: You don't have <permission>
