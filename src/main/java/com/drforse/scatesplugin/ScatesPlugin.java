@@ -13,6 +13,10 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ScatesPlugin extends JavaPlugin {
+
+    private static final int MAX_WALK_SPEED = 1;
+    private static final int MIN_WALK_SPEED = -1;
+
     @Override
     public void onEnable() {
         // TODO Insert logic to be performed when the plugin is enabled
@@ -69,11 +73,11 @@ public final class ScatesPlugin extends JavaPlugin {
         }
 
         //max walkSpeed is 1 and min walkSpeed is -1
-        if (walkSpeed > 1) {
-            walkSpeed = 1;
+        if (walkSpeed > MAX_WALK_SPEED) {
+            walkSpeed = MAX_WALK_SPEED;
         }
-        if (walkSpeed < -1) {
-            walkSpeed = -1;
+        if (walkSpeed < MIN_WALK_SPEED) {
+            walkSpeed = MIN_WALK_SPEED;
         }
 
         player.setWalkSpeed(walkSpeed);
