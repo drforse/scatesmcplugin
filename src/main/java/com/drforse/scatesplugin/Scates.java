@@ -17,6 +17,7 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 public class Scates implements Listener {
+    private static final float SPEED_UP_VALUE = 0.2F;
     private final Logger logger;
     private final Map<UUID, Float> speedUpPlayers = new HashMap<>();
 
@@ -67,22 +68,22 @@ public class Scates implements Listener {
         return "Кожаные коньки".equals(itemMeta.getDisplayName());
     }
 
-    public void speedUpPlayerIfNeeded(Player player) {
+    private void speedUpPlayerIfNeeded(Player player) {
         logger.config("speeding up...");
         Float currentSpeedUp = speedUpPlayers.get(player.getUniqueId());
         if (currentSpeedUp == null) {
             currentSpeedUp = 0F;
         }
         logger.config("current speed up is " + currentSpeedUp);
-        float speedUpToAdd = 0.2F - currentSpeedUp;
+        float speedUpToAdd = SPEED_UP_VALUE - currentSpeedUp;
         logger.config("speed up to add is " + speedUpToAdd);
         if (speedUpToAdd <= 0) {
             return;
         }
 
         logger.config("current speed is " + player.getWalkSpeed());
-        logger.config(String.format("setting speed %s", 0.2F + player.getWalkSpeed()));
-        player.setWalkSpeed(0.2F + player.getWalkSpeed());
+        logger.config(String.format("setting speed %s", SPEED_UP_VALUE + player.getWalkSpeed()));
+        player.setWalkSpeed(SPEED_UP_VALUE + player.getWalkSpeed());
         logger.config(String.format("storing speedUp %s", currentSpeedUp + speedUpToAdd));
         speedUpPlayers.put(player.getUniqueId(), currentSpeedUp + speedUpToAdd);
     }
