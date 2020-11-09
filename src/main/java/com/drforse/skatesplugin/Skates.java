@@ -1,4 +1,4 @@
-package com.drforse.scatesplugin;
+package com.drforse.skatesplugin;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,12 +16,12 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-public class Scates implements Listener {
+public class Skates implements Listener {
     private static final float SPEED_UP_VALUE = 0.2F;
     private final Logger logger;
     private final Map<UUID, Float> speedUpPlayers = new HashMap<>();
 
-    public Scates(JavaPlugin plugin) {
+    public Skates(JavaPlugin plugin) {
         this.logger = plugin.getLogger();
     }
 
@@ -29,7 +29,7 @@ public class Scates implements Listener {
     public void playerMoveHandler(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         logger.config(player.getDisplayName() + " moved");
-        if (playerIsOnIce(player) && playerIsEquippedWithScates(player)){
+        if (playerIsOnIce(player) && playerIsEquippedWithSkates(player)){
             speedUpPlayerIfNeeded(player);
             return;
         }
@@ -55,7 +55,7 @@ public class Scates implements Listener {
         return onBlock.getType() == Material.ICE;
     }
 
-    private boolean playerIsEquippedWithScates(Player player) {
+    private boolean playerIsEquippedWithSkates(Player player) {
         ItemStack currentBoots = player.getInventory().getBoots();
         if (currentBoots == null) {
             return false;

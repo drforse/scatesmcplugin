@@ -1,2 +1,2 @@
-# scatesmcplugin
-Minecraft plugin, which adds scates to the game
+# skatesmcplugin
+Minecraft plugin, which adds skates to the game

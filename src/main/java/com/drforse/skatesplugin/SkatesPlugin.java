@@ -1,4 +1,4 @@
-package com.drforse.scatesplugin;
+package com.drforse.skatesplugin;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class ScatesPlugin extends JavaPlugin {
+public final class SkatesPlugin extends JavaPlugin {
 
     private static final int MAX_WALK_SPEED = 1;
     private static final int MIN_WALK_SPEED = -1;
@@ -22,14 +22,14 @@ public final class ScatesPlugin extends JavaPlugin {
         // TODO Insert logic to be performed when the plugin is enabled
         getLogger().info("onEnable has been invoked!");
 
-        Bukkit.getPluginManager().registerEvents(new Scates(this), this);
-        ItemStack scates = new ItemStack(Material.LEATHER_BOOTS);
-        LeatherArmorMeta scatesMeta = (LeatherArmorMeta) scates.getItemMeta();
-        scatesMeta.setDisplayName("Кожаные коньки");
-        scatesMeta.setColor(Color.BLUE);
-        scates.setItemMeta(scatesMeta);
+        Bukkit.getPluginManager().registerEvents(new Skates(this), this);
+        ItemStack skates = new ItemStack(Material.LEATHER_BOOTS);
+        LeatherArmorMeta skatesMeta = (LeatherArmorMeta) skates.getItemMeta();
+        skatesMeta.setDisplayName("Кожаные коньки");
+        skatesMeta.setColor(Color.BLUE);
+        skates.setItemMeta(skatesMeta);
 
-        ShapedRecipe shapedRecipe = new ShapedRecipe(new NamespacedKey(this, "scates"), scates);
+        ShapedRecipe shapedRecipe = new ShapedRecipe(new NamespacedKey(this, "skates"), skates);
         shapedRecipe.shape("A A", " B ", " C ");
         shapedRecipe.setIngredient('A', Material.STRING);
         shapedRecipe.setIngredient('B', Material.LEATHER_BOOTS);
