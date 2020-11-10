@@ -32,5 +32,6 @@ public final class SkatesPlugin extends JavaPlugin {
         getServer().addRecipe(shapedRecipe);
         getServer().getPluginManager().registerEvents(new EventListener(), this);
         Objects.requireNonNull(getCommand("setWalkSpeed")).setExecutor(new SetWalkSpeedCommand());
+        Objects.requireNonNull(getCommand("getWalkSpeed")).setExecutor(new GetWalkSpeedCommand());
     }
 }

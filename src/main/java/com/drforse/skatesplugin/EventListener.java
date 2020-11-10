@@ -18,18 +18,17 @@ public class EventListener implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        if (isPlayerOnIce(player) && playerIsEquippedWithSkates(player)) {
-            speedUpPlayerIfNeeded(player);
-            return;
+        float neededSpeedUp = 0f;
+        if (isPlayerOnIce(player) && isPlayerEquippedWithSkates(player)) {
+            neededSpeedUp = SPEED_UP_VALUE;
         }
 
         // disable speed up when not on the ice
         float currentSpeedUp = Optional.ofNullable(speedUpPlayers.get(player)).orElse(0f);
-        if (currentSpeedUp <= 0) {
+        if (currentSpeedUp == neededSpeedUp) {
             return;
         }
-        player.setWalkSpeed(player.getWalkSpeed() - currentSpeedUp);
-        speedUpPlayers.remove(player);
+        setSpeedUp(player, neededSpeedUp);
     }
 
     private boolean isPlayerOnIce(Player player) {
@@ -45,20 +44,32 @@ public class EventListener implements Listener {
                 blockMaterial == Material.PACKED_ICE;
     }
 
-    private boolean playerIsEquippedWithSkates(Player player) {
+    private boolean isPlayerEquippedWithSkates(Player player) {
         return Optional.ofNullable(player.getInventory().getBoots())
                 .map(boots -> boots.isSimilar(SkatesPlugin.createSkates()))
                 .orElse(false);
     }
 
-    private void speedUpPlayerIfNeeded(Player player) {
+    private void setSpeedUp(Player player, Float value){
         float currentSpeedUp = Optional.ofNullable(speedUpPlayers.get(player)).orElse(0f);
-        float speedUpToAdd = SPEED_UP_VALUE - currentSpeedUp;
-        if (speedUpToAdd <= 0) {
+        float speedUpToAdd = value - currentSpeedUp;
+        if (speedUpToAdd == 0) {
             return;
         }
 
-        player.setWalkSpeed(SPEED_UP_VALUE + player.getWalkSpeed());
-        speedUpPlayers.put(player, currentSpeedUp + speedUpToAdd);
+        float newWalkSpeed = speedUpToAdd + player.getWalkSpeed();
+        if (newWalkSpeed > SpeedLimits.MAX_SPEED) {
+            speedUpToAdd = SpeedLimits.MAX_SPEED - player.getWalkSpeed();
+        } else if (newWalkSpeed < SpeedLimits.MIN_SPEED) {
+            speedUpToAdd = -(SpeedLimits.MIN_SPEED - player.getWalkSpeed());
+        }
+        newWalkSpeed = speedUpToAdd + player.getWalkSpeed();
+
+        player.setWalkSpeed(newWalkSpeed);
+        if (currentSpeedUp + speedUpToAdd == 0f) {
+            speedUpPlayers.remove(player);
+        } else {
+            speedUpPlayers.put(player, currentSpeedUp + speedUpToAdd);
+        }
     }
 }

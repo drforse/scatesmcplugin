@@ -6,6 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.google.common.primitives.Floats;
+
 public class SetWalkSpeedCommand implements CommandExecutor {
 
     @Override
@@ -29,12 +31,7 @@ public class SetWalkSpeedCommand implements CommandExecutor {
             return false;
         }
 
-        // max walkSpeed is 1 and min walkSpeed is -1
-        if (walkSpeed > 1) {
-            walkSpeed = 1;
-        } else if (walkSpeed < -1) {
-            walkSpeed = -1;
-        }
+        walkSpeed = Floats.constrainToRange(walkSpeed, SpeedLimits.MIN_SPEED, SpeedLimits.MAX_SPEED);
 
         player.setWalkSpeed(walkSpeed);
         sender.sendMessage(ChatColor.YELLOW + playerName + "'s walk speed is now " + walkSpeed);

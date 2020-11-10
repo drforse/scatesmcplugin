@@ -11,6 +11,12 @@ permissions:
 commands:
   setWalkSpeed:
     description: command to set walk speed
-    usage: /<command> [player] [float]
-    permission: <plugin name>.op
+    usage: /setWalkSpeed [player] [float]
+    permission: skatesplugin.op
+    permission-message: You don't have <permission>
+
+  getWalkSpeed:
+    description: command to get walk speed
+    usage: /getWalkSpeed [player] [float]
+    permission: skatesplugin.op
     permission-message: You don't have <permission>
